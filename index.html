@@ -1,102 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
-
-<title>Profile</title>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    background: #0f0f0f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #fff;
-}
-
-.profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 16px; /* ✅ 16px */
-    object-fit: cover;
-    background: #2a2a2a;
-    margin-bottom: 14px;
-}
-
-.placeholder {
-    width: 120px;
-    height: 120px;
-    border-radius: 16px; /* ✅ 16px */
-    background: #2a2a2a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    margin-bottom: 14px;
-}
-
-.name {
-    font-size: 22px;
-    font-weight: 600;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Market</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="profile" id="profile"></div>
+<div id="blocked" class="hidden">
+    <h2>⛔ Доступ запрещён</h2>
+    <p>Это мини-приложение приватное</p>
+</div>
 
-<script>
-const tg = window.Telegram.WebApp;
+<div id="app" class="hidden">
 
-// ✅ инициализация
-tg.ready();
-tg.expand();
+    <!-- Профиль -->
+    <div class="profile">
+        <img id="avatar" src="" alt="avatar">
+        <div id="name">Загрузка…</div>
+    </div>
 
-// 🚫 ЗАПРЕТ ЗАКРЫТИЯ СВАЙПОМ ВНИЗ
-tg.disableVerticalSwipes();
+    <!-- Контент -->
+    <div class="content" id="content">
+        <h3>🛒 Market</h3>
+        <p>Добро пожаловать</p>
+    </div>
 
-const user = tg.initDataUnsafe?.user;
-const profile = document.getElementById("profile");
+    <!-- Меню -->
+    <div class="menu">
+        <button onclick="openTab('market')">🛒</button>
+        <button onclick="openTab('items')">💎</button>
+        <button onclick="openTab('profile')">👤</button>
+        <button onclick="openTab('settings')">⚙️</button>
+    </div>
 
-if (!user) {
-    profile.innerHTML = "<div class='name'>Откройте через Telegram</div>";
-} else {
-    const fullName =
-        user.first_name + (user.last_name ? " " + user.last_name : "");
+</div>
 
-    if (user.photo_url) {
-        profile.innerHTML = `
-            <img class="avatar" src="${user.photo_url}" alt="avatar">
-            <div class="name">${fullName}</div>
-        `;
-    } else {
-        const initials =
-            (user.first_name?.[0] || "") +
-            (user.last_name?.[0] || "");
-
-        profile.innerHTML = `
-            <div class="placeholder">${initials || "🙂"}</div>
-            <div class="name">${fullName}</div>
-        `;
-    }
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
