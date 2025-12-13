@@ -6,25 +6,26 @@ import { fileURLToPath } from "url";
 const app = express();
 app.use(express.json());
 
-// ES module dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 🔹 ОТДАЁМ index.html
+// 🔹 отдаём HTML
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// 🔹 Telegram данные
+// 🔒 разрешённый ID
+const ALLOWED_ID = 651824873;
+
+// 🔹 Telegram
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 
-// 🔹 Приём формы
 app.post("/send", async (req, res) => {
   const { text, name, username, user_id } = req.body;
 
-  // 🔒 приватность
-  if (user_id !== 651824873) {
+  // ❌ серверная защита
+  if (user_id !== ALLOWED_ID) {
     return res.status(403).json({ ok: false });
   }
 
@@ -47,7 +48,6 @@ app.post("/send", async (req, res) => {
   res.json({ ok: true });
 });
 
-// 🔹 Railway
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log("Server started on port " + PORT);
