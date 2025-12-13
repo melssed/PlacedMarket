@@ -27,19 +27,28 @@ body {
 }
 
 .avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px; /* ← как ты просил */
+    background: #2a2a2a;
+    object-fit: cover;
+    margin-bottom: 14px;
+}
+
+.placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
     background: #2a2a2a;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 36px;
-    margin-bottom: 12px;
+    font-size: 40px;
+    margin-bottom: 14px;
 }
 
 .name {
-    font-size: 18px;
+    font-size: 22px; /* ← текст больше */
     font-weight: 600;
 }
 </style>
@@ -47,10 +56,7 @@ body {
 
 <body>
 
-<div class="profile">
-    <div class="avatar" id="avatar">?</div>
-    <div class="name" id="name">Loading...</div>
-</div>
+<div class="profile" id="profile"></div>
 
 <script>
 const tg = window.Telegram.WebApp;
@@ -58,17 +64,29 @@ tg.ready();
 tg.expand();
 
 const user = tg.initDataUnsafe?.user;
+const profile = document.getElementById("profile");
 
-if (user) {
-    const initials =
-        (user.first_name?.[0] || "") +
-        (user.last_name?.[0] || "");
-
-    document.getElementById("avatar").textContent = initials || "🙂";
-    document.getElementById("name").textContent =
-        user.first_name + (user.last_name ? " " + user.last_name : "");
+if (!user) {
+    profile.innerHTML = "<div class='name'>Откройте через Telegram</div>";
 } else {
-    document.getElementById("name").textContent = "Откройте через Telegram";
+    const fullName =
+        user.first_name + (user.last_name ? " " + user.last_name : "");
+
+    if (user.photo_url) {
+        profile.innerHTML = `
+            <img class="avatar" src="${user.photo_url}" alt="avatar">
+            <div class="name">${fullName}</div>
+        `;
+    } else {
+        const initials =
+            (user.first_name?.[0] || "") +
+            (user.last_name?.[0] || "");
+
+        profile.innerHTML = `
+            <div class="placeholder">${initials || "🙂"}</div>
+            <div class="name">${fullName}</div>
+        `;
+    }
 }
 </script>
 
