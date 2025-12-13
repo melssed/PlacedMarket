@@ -2,7 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
 
 <title>Profile</title>
 
@@ -29,16 +32,16 @@ body {
 .avatar {
     width: 120px;
     height: 120px;
-    border-radius: 12px; /* ← как ты просил */
-    background: #2a2a2a;
+    border-radius: 16px; /* ✅ 16px */
     object-fit: cover;
+    background: #2a2a2a;
     margin-bottom: 14px;
 }
 
 .placeholder {
     width: 120px;
     height: 120px;
-    border-radius: 12px;
+    border-radius: 16px; /* ✅ 16px */
     background: #2a2a2a;
     display: flex;
     align-items: center;
@@ -48,7 +51,7 @@ body {
 }
 
 .name {
-    font-size: 22px; /* ← текст больше */
+    font-size: 22px;
     font-weight: 600;
 }
 </style>
@@ -60,8 +63,13 @@ body {
 
 <script>
 const tg = window.Telegram.WebApp;
+
+// ✅ инициализация
 tg.ready();
 tg.expand();
+
+// 🚫 ЗАПРЕТ ЗАКРЫТИЯ СВАЙПОМ ВНИЗ
+tg.disableVerticalSwipes();
 
 const user = tg.initDataUnsafe?.user;
 const profile = document.getElementById("profile");
