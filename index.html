@@ -1,93 +1,58 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Profile</title>
+  <meta charset="UTF-8">
+  <title>Private Mini App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Telegram WebApp API -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<style>
-body {
-    margin: 0;
-    background: #151515;
-    color: white;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.profile {
-    text-align: center;
-}
-
-.avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: #333;
-    object-fit: cover;
-    margin-bottom: 12px;
-}
-
-.name {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.username {
-    font-size: 14px;
-    color: #888;
-}
-
-.error {
-    color: #ff5555;
-    text-align: center;
-}
-</style>
+  <style>
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .denied {
+      color: #ff3b3b;
+      font-size: 18px;
+    }
+  </style>
 </head>
-
 <body>
 
-<div id="app" class="profile" style="display:none">
-    <img id="avatar" class="avatar">
-    <div id="name" class="name"></div>
-    <div id="username" class="username"></div>
+<div id="content" style="display:none;">
+  <h1>Доступ разрешён ✅</h1>
+  <p>Приватное Mini App</p>
 </div>
 
-<div id="error" class="error" style="display:none"></div>
+<div id="denied" class="denied" style="display:none;">
+  ❌ Нет доступа
+</div>
 
 <script>
-const tg = window.Telegram?.WebApp;
+  const tg = window.Telegram.WebApp;
+  tg.ready();
 
-if (!tg) {
-    document.getElementById("error").style.display = "block";
-    document.getElementById("error").innerText =
-        "Откройте страницу через кнопку Telegram";
-} else {
-    tg.ready();
+  const allowedUserId = 651824873;
 
-    const user = tg.initDataUnsafe?.user;
+  const user = tg.initDataUnsafe?.user;
 
-    if (!user) {
-        document.getElementById("error").style.display = "block";
-        document.getElementById("error").innerText =
-            "Нет данных пользователя";
-    } else {
-        document.getElementById("app").style.display = "block";
-
-        document.getElementById("name").textContent =
-            user.first_name + (user.last_name ? " " + user.last_name : "");
-
-        document.getElementById("username").textContent =
-            user.username ? "@" + user.username : "Без username";
-
-        document.getElementById("avatar").src =
-            user.photo_url || "https://via.placeholder.com/96?text=👤";
-    }
-}
+  if (!user) {
+    document.getElementById('denied').innerText = 'Открой через Telegram';
+    document.getElementById('denied').style.display = 'block';
+  } else if (user.id === allowedUserId) {
+    document.getElementById('content').style.display = 'block';
+  } else {
+    document.getElementById('denied').style.display = 'block';
+  }
 </script>
 
 </body>
