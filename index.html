@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>Private Mini App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Telegram WebApp API -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
@@ -15,44 +13,81 @@
       color: white;
       font-family: Arial, sans-serif;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+    }
+    .box {
+      width: 90%;
+      max-width: 400px;
       text-align: center;
     }
+    textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 8px;
+      padding: 10px;
+      border: none;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #2ea6ff;
+      color: white;
+      font-size: 16px;
+    }
     .denied {
-      color: #ff3b3b;
-      font-size: 18px;
+      color: #ff4d4d;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-<div id="content" style="display:none;">
-  <h1>Доступ разрешён ✅</h1>
-  <p>Приватное Mini App</p>
+<div class="box" id="app" style="display:none;">
+  <h2>Отправить сообщение</h2>
+  <textarea id="text" placeholder="Введите текст..."></textarea>
+  <button onclick="send()">Отправить</button>
 </div>
 
-<div id="denied" class="denied" style="display:none;">
-  Mini App is Temporarily Down, 
-Please, Come Back later.
+<div class="denied" id="denied" style="display:none;">
+  ❌ Нет доступа
 </div>
 
 <script>
   const tg = window.Telegram.WebApp;
   tg.ready();
 
-  const allowedUserId = 651824873;
-
+  const ALLOWED_ID = 651824873;
   const user = tg.initDataUnsafe?.user;
 
-  if (!user) {
-    document.getElementById('denied').innerText = 'Открой через Telegram';
+  if (!user || user.id !== ALLOWED_ID) {
     document.getElementById('denied').style.display = 'block';
-  } else if (user.id === allowedUserId) {
-    document.getElementById('content').style.display = 'block';
   } else {
-    document.getElementById('denied').style.display = 'block';
+    document.getElementById('app').style.display = 'block';
+  }
+
+  function send() {
+    const text = document.getElementById('text').value.trim();
+    if (!text) return;
+
+    fetch('https://ТВОЙ-СЕРВЕР/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: user.id,
+        first_name: user.first_name,
+        username: user.username || '—',
+        text
+      })
+    });
+
+    document.getElementById('text').value = '';
+    tg.showAlert('Отправлено ✅');
   }
 </script>
 
