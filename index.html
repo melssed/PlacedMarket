@@ -2,42 +2,139 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Market</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Store</title>
+
+    <!-- Telegram WebApp -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            min-height:100vh;
+            background:#151515;
+            padding-bottom:86px;
+            overflow:hidden;
+            color:white;
+            font-family:-apple-system,BlinkMacSystemFont,sans-serif
+        }
+
+        /* ===== BLOCKED ===== */
+        #blocked{
+            position:fixed;
+            inset:0;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+        }
+        #blocked h2{
+            font-size:20px;
+            margin-bottom:8px;
+        }
+        #blocked p{
+            color:#888;
+            font-size:14px;
+        }
+
+        .hidden{display:none}
+
+        /* ===== MENU ===== */
+        .bottom-menu{
+            position:fixed;
+            bottom:0;
+            left:0;
+            right:0;
+            display:flex;
+            height:86px;
+            background:rgba(37,37,39,.92);
+            backdrop-filter:blur(50px);
+            border-radius:16px 16px 0 0;
+            padding-top:12px;
+            z-index:999
+        }
+        .menu-item{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            cursor:pointer
+        }
+        .menu-icon{
+            width:25px;
+            height:25px;
+            object-fit:contain;
+            margin-bottom:4px;
+            filter:brightness(0)invert(1)opacity(.6)
+        }
+        .menu-text{
+            color:#969696;
+            font-size:11px;
+            font-weight:500
+        }
+        .menu-item.active .menu-icon,
+        .menu-item.clicked .menu-icon{
+            filter:brightness(0)saturate(100%)invert(38%)sepia(87%)
+                   saturate(2011%)hue-rotate(195deg)
+        }
+        .menu-item.active .menu-text,
+        .menu-item.clicked .menu-text{
+            color:#007AFF
+        }
+    </style>
 </head>
 <body>
 
+<!-- ❌ Доступ запрещён -->
 <div id="blocked" class="hidden">
     <h2>⛔ Доступ запрещён</h2>
-    <p>Это мини-приложение приватное</p>
+    <p>Это приватное мини-приложение</p>
 </div>
 
-<div id="app" class="hidden">
-
-    <!-- Профиль -->
-    <div class="profile">
-        <img id="avatar" src="" alt="avatar">
-        <div id="name">Загрузка…</div>
+<!-- ✅ Меню -->
+<nav id="menu" class="bottom-menu hidden">
+    <div class="menu-item active" onclick="clickItem(this, '6949')">
+        <img src="https://storage.botpapa.me/files/cededd50-d5e3-11f0-99ce-adc3d9f181f8.webp" class="menu-icon">
+        <div class="menu-text">Store</div>
     </div>
-
-    <!-- Контент -->
-    <div class="content" id="content">
-        <h3>🛒 Market</h3>
-        <p>Добро пожаловать</p>
+    <div class="menu-item" onclick="clickItem(this, '6982')">
+        <img src="https://storage.botpapa.me/files/12afa110-d754-11f0-a57a-335a93c7643b.png" class="menu-icon">
+        <div class="menu-text">Market</div>
     </div>
-
-    <!-- Меню -->
-    <div class="menu">
-        <button onclick="openTab('market')">🛒</button>
-        <button onclick="openTab('items')">💎</button>
-        <button onclick="openTab('profile')">👤</button>
-        <button onclick="openTab('settings')">⚙️</button>
+    <div class="menu-item" onclick="clickItem(this, '6980')">
+        <img src="https://storage.botpapa.me/files/2b7bbe40-d754-11f0-a57a-335a93c7643b.png" class="menu-icon">
+        <div class="menu-text">Statics</div>
     </div>
+    <div class="menu-item" onclick="clickItem(this, '6938')">
+        <img src="https://storage.botpapa.me/files/38fd9cd0-d5e4-11f0-99ce-adc3d9f181f8.png" class="menu-icon">
+        <div class="menu-text">Profile</div>
+    </div>
+</nav>
 
-</div>
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-<script src="script.js"></script>
+    const ALLOWED_ID = 651824873;
+    const user = tg.initDataUnsafe?.user;
+
+    if (!user || user.id !== ALLOWED_ID) {
+        document.getElementById('blocked').classList.remove('hidden');
+    } else {
+        document.getElementById('menu').classList.remove('hidden');
+    }
+
+    function clickItem(element, page) {
+        element.classList.add('clicked');
+        setTimeout(() => {
+            location.replace(
+                'https://app.botpapa.me/website/%40ConvStarsBot/' + page
+            );
+        }, 0);
+    }
+</script>
+
 </body>
 </html>
