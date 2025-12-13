@@ -6,19 +6,13 @@ import { fileURLToPath } from "url";
 const app = express();
 app.use(express.json());
 
-// 👉 для отдачи index.html
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(__dirname));
 
-// 👉 Telegram данные
-const BOT_TOKEN = process.env.BOT_TOKEN;
-const CHAT_ID = process.env.CHAT_ID;
-
-// 🔒 разрешённый пользователь
+// 🔐 разрешённый Telegram ID
 const ALLOWED_ID = 651824873;
 
-// 👉 главная страница
+// 👉 отдаём index.html
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
@@ -27,23 +21,22 @@ app.get("/", (req, res) => {
 app.post("/send", async (req, res) => {
   const { text, name, username, user_id } = req.body;
 
-  // ⛔ защита сервера
-  if (user_id !== ALLOWED_ID) {
+  // 🔒 проверка доступа
+  if (Number(user_id) !== ALLOWED_ID) {
     return res.status(403).json({ error: "Access denied" });
   }
 
-  const message =
-`📩 Новое сообщение:
+  const message = `📩 Новое сообщение:
 👤 ${name || "Без имени"}
 🔗 @${username || "—"}
 🆔 ${user_id}
 💬 ${text}`;
 
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      chat_id: CHAT_ID,
+      chat_id: process.env.CHAT_ID,
       text: message
     })
   });
