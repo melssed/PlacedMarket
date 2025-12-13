@@ -1,10 +1,11 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private Mini App</title>
+  <title>Private Telegram Mini App</title>
 
+  <!-- Telegram SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
@@ -12,39 +13,44 @@
       margin: 0;
       padding: 20px;
       background: #151515;
-      color: white;
+      color: #ffffff;
       font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      margin-bottom: 12px;
     }
 
     textarea {
       width: 100%;
       height: 120px;
+      padding: 10px;
       background: #1f1f1f;
-      color: white;
+      color: #ffffff;
       border: 1px solid #333;
       border-radius: 8px;
-      padding: 10px;
       resize: none;
+      box-sizing: border-box;
     }
 
     button {
-      margin-top: 12px;
       width: 100%;
+      margin-top: 12px;
       padding: 12px;
       background: #3390ec;
+      color: #ffffff;
       border: none;
       border-radius: 8px;
-      color: white;
       font-size: 16px;
     }
   </style>
 </head>
 <body>
 
-<h3>Приватное Mini App</h3>
+<h2>Приватное мини-приложение</h2>
 
 <form id="form">
-  <textarea name="text" placeholder="Введите сообщение"></textarea>
+  <textarea id="text" placeholder="Введите сообщение"></textarea>
   <button type="submit">Отправить</button>
 </form>
 
@@ -54,7 +60,7 @@
 
   const ALLOWED_ID = 651824873;
 
-  // ❌ если не Telegram
+  // ❌ если открыто не через Telegram
   if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
     document.body.innerHTML = "<h2>Откройте через Telegram</h2>";
     tg.close();
@@ -62,31 +68,36 @@
 
   const user = tg.initDataUnsafe.user;
 
-  // ❌ если не ты
+  // 🔒 приватность
   if (user.id !== ALLOWED_ID) {
     document.body.innerHTML = "<h2>⛔ Доступ запрещён</h2>";
     tg.close();
   }
 
+  // 📩 отправка формы
   document.getElementById("form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const text = e.target.text.value.trim();
+    const text = document.getElementById("text").value.trim();
     if (!text) return;
 
-    await fetch("/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        text,
-        name: user.first_name,
-        username: user.username || "",
-        user_id: user.id
-      })
-    });
+    try {
+      await fetch("/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text,
+          name: user.first_name,
+          username: user.username || "",
+          user_id: user.id
+        })
+      });
 
-    tg.showAlert("Отправлено");
-    e.target.text.value = "";
+      tg.showAlert("Сообщение отправлено");
+      document.getElementById("text").value = "";
+    } catch (err) {
+      tg.showAlert("Ошибка отправки");
+    }
   });
 </script>
 
