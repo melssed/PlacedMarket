@@ -1,32 +1,35 @@
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+import express from "express";
+import fetch from "node-fetch";
 
-<form id="form">
-  <textarea name="text" placeholder="Введите текст"></textarea>
-  <button type="submit">Отправить</button>
-</form>
+const app = express();
+app.use(express.json());
 
-<script>
-const tg = window.Telegram.WebApp;
-const user = tg.initDataUnsafe?.user;
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
 
-document.getElementById("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
+app.post("/send", async (req, res) => {
+  const { text, name, username, user_id } = req.body;
 
-  const text = e.target.text.value;
+  const message =
+`📩 Новое сообщение:
+👤 ${name || "Без имени"}
+🔗 @${username || "—"}
+🆔 ${user_id}
+💬 ${text}`;
 
-  await fetch("/send", {
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      text: text,
-      name: user?.first_name,
-      username: user?.username,
-      user_id: user?.id
+      chat_id: CHAT_ID,
+      text: message
     })
   });
 
-  tg.showAlert("Отправлено");
+  res.json({ ok: true });
 });
-</script>
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log("Server started on port " + PORT);
+});
