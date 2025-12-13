@@ -1,1 +1,67 @@
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
+body {
+    margin: 0;
+    background: #0f0f0f;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+#blocked {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+}
+
+.profile img {
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+    object-fit: cover;
+    background: #2a2a2a;
+}
+
+#name {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.content {
+    padding: 20px;
+    padding-bottom: 90px;
+}
+
+.menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #151515;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+}
