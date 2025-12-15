@@ -1,22 +1,20 @@
-const tg = window.Telegram.WebApp;
-
-tg.ready();
-tg.expand();
-
-if (tg.disableVerticalSwipes) {
-    tg.disableVerticalSwipes();
+if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+    Telegram.WebApp.disableVerticalSwipes();
 }
 
-tg.setBackgroundColor('#151515');
-tg.setHeaderColor('#151515');
+const buttons = document.querySelectorAll('.menu-item');
+const screens = document.querySelectorAll('.screen');
 
-/* Переключение экранов */
-document.querySelectorAll('.menu-item').forEach(btn => {
+buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        const target = btn.dataset.screen;
+
+        buttons.forEach(b => b.classList.remove('active'));
+        screens.forEach(s => s.classList.remove('active'));
 
         btn.classList.add('active');
-        document.getElementById(btn.dataset.screen).classList.add('active');
+        document.getElementById(target).classList.add('active');
     });
 });
