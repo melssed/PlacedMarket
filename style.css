@@ -7,65 +7,53 @@
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
+    width: 100%;
     height: 100%;
+    margin: 0;
+    position: fixed;
+    overflow: hidden;
     background: #151515;
     color: #fff;
-    overscroll-behavior: none;
-    touch-action: manipulation;
     font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 }
 
-/* ❌ Запрет масштабирования */
-body {
-    overflow: hidden;
-}
-
-/* Контент страницы */
 .page {
+    position: absolute;
+    top: env(safe-area-inset-top);
+    left: 0;
+    right: 0;
+    bottom: calc(70px + env(safe-area-inset-bottom));
     padding: 16px;
-    padding-bottom: 86px;
 }
-
-h1 {
-    margin: 0;
-    font-size: 22px;
-}
-
-/* ===== МЕНЮ ===== */
 
 .bottom-menu {
     position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
+    bottom: 0;
 
-    height: 70px;
+    height: calc(70px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
 
-    background: rgba(30, 30, 30, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .menu-item {
     flex: 1;
-    text-align: center;
-    text-decoration: none;
-
     color: #a6a6a6;
+    text-decoration: none;
+    font-size: 11px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    font-size: 11px;
 }
 
 .menu-item img {
@@ -75,7 +63,6 @@ h1 {
     filter: grayscale(1) brightness(0.7);
 }
 
-/* Активная вкладка */
 .menu-item.active {
     color: #2c94ff;
 }
