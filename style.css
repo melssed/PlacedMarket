@@ -1,67 +1,48 @@
 * {
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
-    background: #0f0f0f;
-    color: white;
+    background: #151515;
+    color: #fff;
+    font-family: Arial, sans-serif;
 }
 
-.hidden {
-    display: none;
-}
-
-#blocked {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px;
-}
-
-.profile img {
-    width: 96px;
-    height: 96px;
-    border-radius: 16px;
-    object-fit: cover;
-    background: #2a2a2a;
-}
-
-#name {
-    margin-top: 12px;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.content {
+.page {
     padding: 20px;
-    padding-bottom: 90px;
+    padding-bottom: 80px;
 }
 
-.menu {
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Нижнее меню */
+.bottom-menu {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 64px;
-    background: #151515;
+
+    height: 60px;
+    background: #1f1f1f;
+    border-top: 1px solid #2a2a2a;
+
     display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
 
-.menu button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 22px;
+.menu-item {
+    flex: 1;
+    text-align: center;
+    line-height: 60px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.menu-item.active {
+    color: #3ea6ff;
 }
