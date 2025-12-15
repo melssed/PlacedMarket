@@ -1,94 +1,99 @@
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
     height: 100%;
     background: #151515;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #fff;
     overflow: hidden;
+    user-select: none;
 }
 
-/* ===== Контент ===== */
-#app {
-    height: 100%;
-    padding-bottom: 85px;
+.pages {
+    height: calc(100vh - 85px);
+    position: relative;
 }
 
 .screen {
     display: none;
-    padding: 0 20px;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .screen.active {
     display: block;
 }
 
-/* 🔹 отступ сверху 32px */
-.screen-spacer {
+.top-space {
     height: 32px;
 }
 
-/* ===== Нижнее меню ===== */
+/* ===== МЕНЮ ===== */
 .bottom-menu {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-
     height: 85px;
     display: flex;
-
-    background: rgba(30, 30, 30, 0.7);
+    background: rgba(20, 20, 20, 0.85);
     backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255,255,255,0.05);
 }
 
-/* ===== Элемент меню ===== */
 .menu-item {
     flex: 1;
     background: none;
     border: none;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding-top: 13px;
-    gap: 6px;
-
     color: #a6a6a6;
-}
-
-/* ===== Текст ===== */
-.menu-item .label {
+    padding-top: 13px;
     font-size: 11px;
     font-weight: 500;
     line-height: 1.1;
 }
 
-/* ===== ИКОНКИ ===== */
-.menu-item img {
-    width: 27px;
-    height: 27px;
-
-    /* приведение к #a6a6a6 */
-    filter: brightness(0) saturate(100%) invert(73%);
-}
-
-/* ===== Активный пункт ===== */
 .menu-item.active {
     color: #2c94ff;
 }
 
-.menu-item.active img {
-    filter: brightness(0) saturate(100%)
-            invert(45%)
-            sepia(90%)
-            saturate(2000%)
-            hue-rotate(190deg);
+/* ===== ИКОНКИ ===== */
+.icon {
+    display: block;
+    width: 27px;
+    height: 27px;
+    margin: 0 auto 6px;
+    background-color: currentColor;
+}
+
+.mask {
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+.store {
+    mask-image: url("https://storage.botpapa.me/icons/c6b9ea1a-8131-4634-94f5-c655a1b19238.webp");
+    -webkit-mask-image: url("https://storage.botpapa.me/icons/c6b9ea1a-8131-4634-94f5-c655a1b19238.webp");
+}
+
+.market {
+    mask-image: url("https://storage.botpapa.me/icons/902a5d31-3655-4b4f-b5a0-ecc58e5bb746.webp");
+    -webkit-mask-image: url("https://storage.botpapa.me/icons/902a5d31-3655-4b4f-b5a0-ecc58e5bb746.webp");
+}
+
+.orders {
+    mask-image: url("https://storage.botpapa.me/icons/348f982a-f361-4f75-893f-d8aee1324246.webp");
+    -webkit-mask-image: url("https://storage.botpapa.me/icons/348f982a-f361-4f75-893f-d8aee1324246.webp");
+}
+
+.profile {
+    mask-image: url("https://storage.botpapa.me/icons/3ad826b7-6a67-42b8-94f8-64feee380c47.webp");
+    -webkit-mask-image: url("https://storage.botpapa.me/icons/3ad826b7-6a67-42b8-94f8-64feee380c47.webp");
 }
