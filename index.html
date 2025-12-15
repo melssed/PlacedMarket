@@ -4,56 +4,42 @@
     <meta charset="UTF-8">
 
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
-          user-scalable=no, viewport-fit=cover">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
     <title>Placed Market</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ЭКРАНЫ -->
-<div class="screen active" id="store">
-    <h1>Store</h1>
+<div id="app">
+
+    <div class="screen active" id="store">
+        <h1>Store</h1>
+    </div>
+
+    <div class="screen" id="market">
+        <h1>Market</h1>
+    </div>
+
+    <div class="screen" id="orders">
+        <h1>Orders</h1>
+    </div>
+
+    <div class="screen" id="profile">
+        <h1>Profile</h1>
+    </div>
+
 </div>
 
-<div class="screen" id="market">
-    <h1>Market</h1>
-</div>
-
-<div class="screen" id="orders">
-    <h1>Orders</h1>
-</div>
-
-<div class="screen" id="profile">
-    <h1>Profile</h1>
-</div>
-
-<!-- МЕНЮ -->
 <nav class="bottom-menu">
-    <button class="menu-item active" data-screen="store">
-        <img src="https://storage.botpapa.me/icons/c6b9ea1a-8131-4634-94f5-c655a1b19238.webp">
-        Store
-    </button>
-    <button class="menu-item" data-screen="market">
-        <img src="https://storage.botpapa.me/icons/902a5d31-3655-4b4f-b5a0-ecc58e5bb746.webp">
-        Market
-    </button>
-    <button class="menu-item" data-screen="orders">
-        <img src="https://storage.botpapa.me/icons/348f982a-f361-4f75-893f-d8aee1324246.webp">
-        Orders
-    </button>
-    <button class="menu-item" data-screen="profile">
-        <img src="https://storage.botpapa.me/icons/3ad826b7-6a67-42b8-94f8-64feee380c47.webp">
-        Profile
-    </button>
+    <button class="menu-item active" data-screen="store">Store</button>
+    <button class="menu-item" data-screen="market">Market</button>
+    <button class="menu-item" data-screen="orders">Orders</button>
+    <button class="menu-item" data-screen="profile">Profile</button>
 </nav>
 
-<script src="js/app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
