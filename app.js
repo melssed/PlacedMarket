@@ -3,17 +3,17 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-/* ❌ Запрещаем закрытие свайпом */
 if (tg.disableVerticalSwipes) {
     tg.disableVerticalSwipes();
 }
 
-/* ❌ Запрещаем случайное закрытие */
-tg.disableClosingConfirmation();
+document.addEventListener(
+    'touchmove',
+    e => e.preventDefault(),
+    { passive: false }
+);
 
-/* ❌ iOS bounce fix */
-document.body.addEventListener('touchmove', function (e) {
-    if (e.scale !== 1) {
-        e.preventDefault();
-    }
-}, { passive: false });
+['gesturestart', 'gesturechange', 'gestureend']
+    .forEach(evt =>
+        document.addEventListener(evt, e => e.preventDefault())
+    );
