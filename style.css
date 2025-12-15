@@ -6,94 +6,82 @@
 }
 
 html, body {
+    width: 100%;
     height: 100%;
-    background: #151515;
-    color: #fff;
+    background: #121212;
+    font-family: Arial, sans-serif;
     overflow: hidden;
-    user-select: none;
 }
 
-.pages {
-    height: calc(100vh - 85px);
-    position: relative;
-}
-
+/* Экраны */
 .screen {
+    position: absolute;
+    inset: 0;
     display: none;
-    height: 100%;
-    overflow-y: auto;
+    background: #121212;
 }
 
 .screen.active {
     display: block;
 }
 
+/* STORE iframe */
+.store-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Обычные страницы */
+.page {
+    min-height: 100vh;
+    padding: 56px 16px 80px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .top-space {
     height: 32px;
 }
 
-/* ===== МЕНЮ ===== */
+/* MENU */
 .bottom-menu {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 85px;
-    display: flex;
-    background: rgba(20, 20, 20, 0.85);
+    height: 64px;
+    background: rgba(25, 25, 25, 0.85);
     backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    z-index: 1000;
 }
 
 .menu-item {
     flex: 1;
-    background: none;
     border: none;
-    color: #a6a6a6;
-    padding-top: 13px;
-    font-size: 11px;
-    font-weight: 500;
+    background: none;
+    color: #9a9a9a;
+    font-size: 12px;
     line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.menu-item img {
+    width: 22px;
+    height: 22px;
+    opacity: 0.7;
 }
 
 .menu-item.active {
-    color: #2c94ff;
+    color: #0095ff;
 }
 
-/* ===== ИКОНКИ ===== */
-.icon {
-    display: block;
-    width: 27px;
-    height: 27px;
-    margin: 0 auto 6px;
-    background-color: currentColor;
-}
-
-.mask {
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-}
-
-.store {
-    mask-image: url("https://storage.botpapa.me/icons/c6b9ea1a-8131-4634-94f5-c655a1b19238.webp");
-    -webkit-mask-image: url("https://storage.botpapa.me/icons/c6b9ea1a-8131-4634-94f5-c655a1b19238.webp");
-}
-
-.market {
-    mask-image: url("https://storage.botpapa.me/icons/902a5d31-3655-4b4f-b5a0-ecc58e5bb746.webp");
-    -webkit-mask-image: url("https://storage.botpapa.me/icons/902a5d31-3655-4b4f-b5a0-ecc58e5bb746.webp");
-}
-
-.orders {
-    mask-image: url("https://storage.botpapa.me/icons/348f982a-f361-4f75-893f-d8aee1324246.webp");
-    -webkit-mask-image: url("https://storage.botpapa.me/icons/348f982a-f361-4f75-893f-d8aee1324246.webp");
-}
-
-.profile {
-    mask-image: url("https://storage.botpapa.me/icons/3ad826b7-6a67-42b8-94f8-64feee380c47.webp");
-    -webkit-mask-image: url("https://storage.botpapa.me/icons/3ad826b7-6a67-42b8-94f8-64feee380c47.webp");
+.menu-item.active img {
+    opacity: 1;
+    filter: brightness(0) saturate(100%) invert(46%) sepia(98%) saturate(1700%) hue-rotate(189deg);
 }
