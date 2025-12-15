@@ -3,12 +3,10 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-/* 🔒 Отключаем свайпы WebView */
 if (tg.disableVerticalSwipes) {
     tg.disableVerticalSwipes();
 }
 
-/* Цвета Telegram */
 tg.setBackgroundColor('#151515');
 tg.setHeaderColor('#151515');
 
