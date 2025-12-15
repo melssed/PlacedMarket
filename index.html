@@ -1,55 +1,45 @@
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #151515;
-    color: white;
-    font-family: system-ui, sans-serif;
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-    overflow: hidden; /* ❗ убирает свайп как у сайта */
-}
+    <title>Placed Market</title>
 
-#app {
-    height: 100%;
-    padding-bottom: 85px;
-}
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.screen {
-    display: none;
-    padding: 20px;
-}
+<div id="app">
 
-.screen.active {
-    display: block;
-}
+    <div class="screen active" id="store">
+        <h1>Store</h1>
+    </div>
 
-/* ===== Нижнее меню ===== */
-.bottom-menu {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    <div class="screen" id="market">
+        <h1>Market</h1>
+    </div>
 
-    height: 85px;
-    background: #1e1e1e;
-    display: flex;
-    border-top: 1px solid #2a2a2a;
-}
+    <div class="screen" id="orders">
+        <h1>Orders</h1>
+    </div>
 
-.menu-item {
-    flex: 1;
-    border: none;
-    background: none;
-    color: #a6a6a6;
-    font-size: 14px;
-}
+    <div class="screen" id="profile">
+        <h1>Profile</h1>
+    </div>
 
-.menu-item.active {
-    color: #2c94ff;
-    font-weight: 600;
-}
+</div>
+
+<nav class="bottom-menu">
+    <button class="menu-item active" data-screen="store">Store</button>
+    <button class="menu-item" data-screen="market">Market</button>
+    <button class="menu-item" data-screen="orders">Orders</button>
+    <button class="menu-item" data-screen="profile">Profile</button>
+</nav>
+
+<script src="app.js"></script>
+</body>
+</html>
