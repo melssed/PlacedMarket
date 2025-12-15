@@ -10,7 +10,7 @@ if (tg.disableVerticalSwipes) {
 tg.setBackgroundColor('#151515');
 tg.setHeaderColor('#151515');
 
-/* Навигация */
+/* Переключение экранов */
 document.querySelectorAll('.menu-item').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('active'));
