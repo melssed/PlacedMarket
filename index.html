@@ -2,67 +2,65 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>Placed Market</title>
 
-    <link rel="stylesheet" href="style.css">
-
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- STORE (iframe) -->
-<div class="screen active" id="store">
-    <iframe
-        class="store-iframe"
-        src="https://app.botpapa.me/website/placed/7006"
-        allow="clipboard-read; clipboard-write; payment"
-    ></iframe>
-</div>
+<div class="app">
 
-<!-- MARKET -->
-<div class="screen" id="market">
-    <div class="page">
-        <div class="top-space"></div>
+    <!-- SCREENS -->
+    <div class="screen active" id="store">
+        <div class="top-spacer"></div>
+        <iframe
+            src="https://app.botpapa.me/website/placed/7006"
+            class="store-iframe"
+            allow="clipboard-write; fullscreen"
+        ></iframe>
+    </div>
+
+    <div class="screen" id="market">
+        <div class="top-spacer"></div>
         <h1>Market</h1>
     </div>
-</div>
 
-<!-- ORDERS -->
-<div class="screen" id="orders">
-    <div class="page">
-        <div class="top-space"></div>
+    <div class="screen" id="orders">
+        <div class="top-spacer"></div>
         <h1>Orders</h1>
     </div>
-</div>
 
-<!-- PROFILE -->
-<div class="screen" id="profile">
-    <div class="page">
-        <div class="top-space"></div>
+    <div class="screen" id="profile">
+        <div class="top-spacer"></div>
         <h1>Profile</h1>
     </div>
+
 </div>
 
-<!-- MENU -->
+<!-- BOTTOM MENU -->
 <nav class="bottom-menu">
     <button class="menu-item active" data-screen="store">
-        <img src="https://storage.botpapa.me/icons/commerce/store.svg">
+        <i class="icon store"></i>
         <span>Store</span>
     </button>
 
     <button class="menu-item" data-screen="market">
-        <img src="https://storage.botpapa.me/icons/commerce/market.svg">
+        <i class="icon market"></i>
         <span>Market</span>
     </button>
 
     <button class="menu-item" data-screen="orders">
-        <img src="https://storage.botpapa.me/icons/commerce/orders.svg">
+        <i class="icon orders"></i>
         <span>Orders</span>
     </button>
 
     <button class="menu-item" data-screen="profile">
-        <img src="https://storage.botpapa.me/icons/user/profile.svg">
+        <i class="icon profile"></i>
         <span>Profile</span>
     </button>
 </nav>
