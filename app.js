@@ -3,18 +3,22 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-/* Убираем системные свайпы внутри WebView */
+/* 🔒 Отключаем свайпы WebView */
 if (tg.disableVerticalSwipes) {
     tg.disableVerticalSwipes();
 }
 
-/* Фиксируем цвета */
+/* Цвета Telegram */
 tg.setBackgroundColor('#151515');
 tg.setHeaderColor('#151515');
 
-/* Полный запрет скролла */
-document.addEventListener(
-    'touchmove',
-    e => e.preventDefault(),
-    { passive: false }
-);
+/* Навигация */
+document.querySelectorAll('.menu-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.screen).classList.add('active');
+    });
+});
