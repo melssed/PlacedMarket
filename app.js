@@ -1,24 +1,26 @@
-// Telegram fullscreen
-if (window.Telegram && Telegram.WebApp) {
-    Telegram.WebApp.ready();
-    Telegram.WebApp.expand();
-    Telegram.WebApp.disableClosingConfirmation();
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+if (tg.disableVerticalSwipes) {
+    tg.disableVerticalSwipes();
 }
 
-// Navigation
-const buttons = document.querySelectorAll('.menu-item');
-const screens = document.querySelectorAll('.screen');
+tg.setBackgroundColor('#151515');
+tg.setHeaderColor('#151515');
 
-buttons.forEach(btn => {
+/* Navigation */
+document.querySelectorAll('.menu-item').forEach(btn => {
     btn.addEventListener('click', () => {
-        const target = btn.dataset.screen;
 
-        buttons.forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.menu-item')
+            .forEach(b => b.classList.remove('active'));
+
+        document.querySelectorAll('.screen')
+            .forEach(s => s.classList.remove('active'));
+
         btn.classList.add('active');
-
-        screens.forEach(s => {
-            s.classList.remove('active');
-            if (s.id === target) s.classList.add('active');
-        });
+        document.getElementById(btn.dataset.screen).classList.add('active');
     });
 });
